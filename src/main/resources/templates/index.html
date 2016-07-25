@@ -1,0 +1,127 @@
+<html ng-app="empManagerApp">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+<title>AngularJS Employee Manager</title>
+
+<link href='./css/style.css' rel="stylesheet" type="text/css" />
+<link href='./css/css/font-awesome.css' rel="stylesheet" type="text/css" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
+
+<script data-require="angular.js@*" data-semver="1.3.0-beta.14"
+	src="http://code.angularjs.org/1.3.0-beta.14/angular.js"></script>
+<script data-require="angular-animate@*" data-semver="1.3.0-beta.14"
+	src="http://code.angularjs.org/1.3.0-beta.14/angular-animate.js"></script>
+<script type="text/javascript" src="./js/app.js"></script>
+</head>
+
+<body>
+
+	<div ng-controller="empManagerController">
+		<h2 class="page-title">Employee Manager using Spring Boot, Spring
+			Data REST &amp; AngularJS</h2>
+		<h4 class="page-title">
+			My Human resources by <a href="">Rohini</a>
+		</h4>
+		
+		<div id="employee-panel" class="fadein fadeout showpanel panel" ng-show="toggle">
+			<div class="panel-heading">
+				<i class="panel-title-icon fa fa-tasks"></i> <span
+					class="panel-title">Recent Employees</span>
+				<div class="panel-heading-controls">
+					<button ng-click="toggle = !toggle" class="btn-panel">Add Employee</button>
+					<button ng-click="toggle = !toggle" class="btn-panel">All Employee List</button>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="employee" ng-repeat="employee in employeeList">
+					
+					<div class="action-checkbox">
+						<input id="{{employee._links.self.href}}" type="checkbox"
+							value="{{employee._links.self.href}}"
+							ng-checked="selection.indexOf(employee._links.self.href) > -1"
+							ng-click="toggleSelection(employee._links.self.href)" /> <label
+							for="{{employee._links.self.href}}"></label>
+					
+						<a href="#" class="uncheckedClass"> 
+						{{employee.firstName}} 
+						
+						{{employee.middleName}} 
+						{{employee.lastName}} 
+						{{employee.dob}} 
+						{{employee.martialStatus}} 
+						{{employee.nationality}} 
+						{{employee.ssn}} 
+						{{employee.immigrationStatus}} 
+						<span class="action-status">{{employee.immigrationStatus}}</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="add-employee-panel" class="fadein fadeout addpanel panel"
+			ng-hide="toggle">
+			<div class="panel-heading">
+				<i class="panel-title-icon fa fa-plus"></i> 
+				<span class="panel-title">Add Employee</span>
+				<div class="panel-heading-controls">
+					<button ng-click="toggle = !toggle" class="btn-panel">Show All Employee</button>
+				</div>
+			</div>
+			<div class="panel-body">
+				<div class="employee">
+					<table class="add-employee">
+						<tr>
+							<td>First Name:</td>
+							<td><input type="text" ng-model="firstName" /></td>
+						</tr>
+						<tr>
+							<td>Middle Name:</td>
+							<td><input type="text" ng-model="middleName" /></td>
+						</tr>
+						<tr>
+							<td>Last Name:</td>
+							<td><input type="text" ng-model="lastName" /></td>
+						</tr>
+						<tr>
+							<td>Date of Birth:</td>
+							<td><input type="text" ng-model="dob" /></td>
+						</tr>
+						<tr>
+							<td>martial Status:</td>
+							<td><select ng-model="martialStatus"
+										ng-options="status as status for status in statuses">
+								<option value="">-- Select --</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>Nationality:</td>
+							<td><select ng-model="nationality"
+								ng-options="priority as priority for priority in priorities">
+									<option value="">-- Select --</option>
+							</select></td>
+						</tr>
+						<tr>
+							<td>Social Security Number:</td>
+							<td><input type="text" ng-model="ssn" /></td>
+						</tr>
+						<tr>
+							<td>Immigration Status:</td>
+							<td><select ng-model="immigrationStatus"
+										ng-options="status as status for status in statuses">
+								<option value="">-- Select --</option>
+							</select></td>
+						</tr>
+						
+						
+						<tr>
+							<td><br />
+							<button ng-click="addEmployee()" class="btn-panel-big">Add New Employee</button></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
